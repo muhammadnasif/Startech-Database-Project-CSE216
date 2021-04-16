@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title>Sales Entry</title>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav mr-auto">
+                <a class="nav-link" href="home">Home</a>
+                <a class="nav-link" href="sales_entry">Sales Entry</a>
+                <a class="nav-link" href="product_info">Product Info</a>
+                <a class="nav-link" href="check_stock">Check Stock</a>
+                <a class="nav-link" href="sales_representative_status">Profile</a>
+            </ul>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="#">Startech</a>
+
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a href="logout" class="btn btn-success">Log Out</a>
+                    </li>
+
+                </ul>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="text-center">Sales Data Entry</h1>
+        <h3 class="text-center">ID: {{ employee_id }}</h3>
+        <form method="POST" action="">
+            {% csrf_token %}
+
+            <br>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Name" name="name" required>
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Phone No" name="phone_no" required>
+                </div>
+            </div>
+
+            <br>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Area" name="area" required>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="District" name="district">
+                </div>
+            </div>
+
+            <br>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Postal Code" name="postal_code">
+                </div>
+                <div class="col">
+                    <select class="form-control" id="exampleFormControlSelect1" name="imei">
+                        <option disabled="True"> IMEI</option>
+                        {% for data in available_imei %}
+                            <option> {{ data.imei }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+            </div>
+
+            <br>
+            <div class="form-row">
+                <div class="col">
+                    <input type="date" class="form-control" placeholder="Date" name="date_of_sell">
+                </div>
+            </div>
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<div class="container">
+    {% if message.level == DEFAULT_MESSAGE_LEVEL.INFO %}
+        {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                            {{ message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
+</script>
+</body>
+</html>

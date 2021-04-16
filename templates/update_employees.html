@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="text-center">Edit Employee Data</h1>
+        <hr class="my-4">
+        <form method="POST" action="" >
+
+
+                {% csrf_token %}
+
+                <input type="text" class="form-control" placeholder="Enter Name" name="name" value={{ name }}>
+                <br>
+                <select class="form-control" id="exampleFormControlSelect1" name="designation" value={{ designation }}>
+                    <option disabled="True"> Designation</option>
+                    {% for data in desigs %}
+                        <option> {{ data.desig }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <input type="number" class="form-control" placeholder="Salary" name="salary" value={{ salary }}>
+                <br>
+                <input type="date" class="form-control" placeholder="Date" name="date" >
+                <br>
+                <select class="form-control" id="exampleFormControlSelect1" name="branch" required>
+                    <option disabled="True"> Branch</option>
+                    {% for data in branches %}
+                        <option> {{ data.branch }}</option>
+                    {% endfor %}
+                </select>
+
+                <br>
+                <input type="text" class="form-control" placeholder="Username" name="username" value={{ username }}>
+                <br>
+                <input type="text" class="form-control" placeholder="Password" name="password">
+                <br>
+                <button type="submit" class="btn btn-primary" name="Click">Submit</button>
+            </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="container">
+    {% if message.level == DEFAULT_MESSAGE_LEVEL.WARNING %}
+        {% if messages %}
+            <div class="alert alert-warning" role="alert">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                            {{ message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
